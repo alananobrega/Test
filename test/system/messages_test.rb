@@ -15,7 +15,6 @@ class MessagesTest < ApplicationSystemTestCase
     click_on "New Message"
 
     fill_in "Content", with: @message.content
-    fill_in "State", with: @message.state
     fill_in "Title", with: @message.title
     click_on "Create Message"
 
@@ -28,7 +27,6 @@ class MessagesTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Content", with: @message.content
-    fill_in "State", with: @message.state
     fill_in "Title", with: @message.title
     click_on "Update Message"
 
@@ -39,9 +37,9 @@ class MessagesTest < ApplicationSystemTestCase
   test "destroying a Message" do
     visit messages_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on "Archive", match: :first
     end
 
-    assert_text "Message was successfully destroyed"
+    assert_text "Message was successfully archived."
   end
 end
