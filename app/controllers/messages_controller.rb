@@ -63,6 +63,15 @@ class MessagesController < ApplicationController
     end
   end
 
+  def destroy_all
+    @messages = Message.where.not(state: 'archived')
+    @messages.each(&:archive)
+    respond_to do |format|
+      format.html { redirect_to messages_url, notice: 'Messages was successfully archived.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_message
