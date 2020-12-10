@@ -42,4 +42,13 @@ class MessagesTest < ApplicationSystemTestCase
 
     assert_text "Message was successfully archived."
   end
+
+  test 'destroying all Messages' do
+    visit messages_url
+    page.accept_confirm do
+      click_on 'Archive All', match: :first
+    end
+
+    assert_text 'Messages was successfully archived.'
+  end
 end

@@ -23,3 +23,70 @@ Migrating to CreateMessages (20191227140001)
   [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
   [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
   [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for ::1 at 2020-12-10 19:37:06 -0300
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MessagesController#index as HTML
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (0.1ms)[0m  [1m[34mSELECT "messages".* FROM "messages" WHERE "messages"."state" != ? ORDER BY "messages"."created_at" DESC[0m  [["state", "archived"]]
+  ↳ app/views/messages/index.html.erb:15
+  Rendered messages/index.html.erb within layouts/application (Duration: 3.4ms | Allocations: 1989)
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /home/alana/code/alananobrega/enjoei_test 2/enjoei_test/public/packs
+[Webpacker] Hash: 32e57f147dbdcbbf0c82
+Version: webpack 4.43.0
+Time: 523ms
+Built at: 12/10/2020 7:37:08 PM
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-bbe9c4a129ab949e0636.js    124 KiB  application  [emitted] [immutable]  application
+js/application-bbe9c4a129ab949e0636.js.map    139 KiB  application  [emitted] [dev]        application
+                             manifest.json  364 bytes               [emitted]              
+Entrypoint application = js/application-bbe9c4a129ab949e0636.js js/application-bbe9c4a129ab949e0636.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 749 bytes {application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 3 hidden modules
+
+Completed 200 OK in 1643ms (Views: 1634.4ms | ActiveRecord: 0.4ms | Allocations: 35591)
+
+
+Started GET "/messages/new" for ::1 at 2020-12-10 19:37:52 -0300
+Processing by MessagesController#new as HTML
+  Rendering messages/new.html.erb within layouts/application
+  Rendered messages/_form.html.erb (Duration: 9.3ms | Allocations: 7035)
+  Rendered messages/new.html.erb within layouts/application (Duration: 10.1ms | Allocations: 7409)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 20ms (Views: 13.9ms | ActiveRecord: 0.4ms | Allocations: 15732)
+
+
+Started POST "/messages" for ::1 at 2020-12-10 19:38:01 -0300
+Processing by MessagesController#create as HTML
+  Parameters: {"authenticity_token"=>"OQwWkKbtIcOcAB0LAF7Bj22+yVfeq3R5rwyLztAyRoeTlLjeYQ4mPTu8F+W/efOorKLWWupPcYA0n0w40aJqTg==", "message"=>{"title"=>"Test", "content"=>"@@@\r\n"}, "commit"=>"Create Message"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/messages_controller.rb:31:in `block in create'
+  [1m[36mMessage Create (0.5ms)[0m  [1m[32mINSERT INTO "messages" ("title", "content", "state", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["title", "Test"], ["content", "@@@\r\n"], ["state", "unread"], ["created_at", "2020-12-10 22:38:01.305599"], ["updated_at", "2020-12-10 22:38:01.305599"]]
+  ↳ app/controllers/messages_controller.rb:31:in `block in create'
+  [1m[35m (3.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/messages_controller.rb:31:in `block in create'
+Redirected to http://localhost:3000/messages/1
+Completed 302 Found in 14ms (ActiveRecord: 4.3ms | Allocations: 4427)
+
+
+Started GET "/messages/1" for ::1 at 2020-12-10 19:38:01 -0300
+Processing by MessagesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMessage Load (0.2ms)[0m  [1m[34mSELECT "messages".* FROM "messages" WHERE "messages"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/messages_controller.rb:78:in `set_message'
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/models/message.rb:8:in `read'
+  [1m[36mMessage Update (0.2ms)[0m  [1m[33mUPDATE "messages" SET "state" = ?, "updated_at" = ? WHERE "messages"."id" = ?[0m  [["state", "read"], ["updated_at", "2020-12-10 22:38:01.324079"], ["id", 1]]
+  ↳ app/models/message.rb:8:in `read'
+  [1m[35m (3.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/models/message.rb:8:in `read'
+  Rendering messages/show.html.erb within layouts/application
+  Rendered messages/show.html.erb within layouts/application (Duration: 0.7ms | Allocations: 346)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 14ms (Views: 4.5ms | ActiveRecord: 4.3ms | Allocations: 8757)
+
+

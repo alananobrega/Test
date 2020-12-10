@@ -5,22 +5,13 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     @message = messages(:one)
   end
 
-  test "should get index" do
-    get messages_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_message_url
-    assert_response :success
-  end
-
   test "should create message" do
     assert_difference('Message.count') do
       post messages_url, params: { message: { content: @message.content, title: @message.title } }
+      return @message
     end
 
-    assert_redirected_to messages_url
+    assert_redirected_to message_path(@message)
   end
 
   test "should show message" do
@@ -43,6 +34,12 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     delete message_url(@message)
     assert_equal 'archived', @message.reload.state
 
+    assert_redirected_to messages_url
+  end
+
+  test "should destroy all messages" do
+    put archived_all_path
+    assert_equal Message.where.not(state: 'archived').count, 0
     assert_redirected_to messages_url
   end
 end
